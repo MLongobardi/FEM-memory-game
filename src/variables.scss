@@ -6,56 +6,22 @@
 %heading-M,
 %heading-S,
 %heading-XS {
-	font-size: 56px;
-	line-height: 71px;
-	font-weight: bold;
-	color: black;
+	//h1
+	margin: 0;
+	font-size: 48px;
+	line-height: 60px;
+	font-weight: 700;
+	color: var(--dark-blue);
 }
 %heading-M {
-	font-size: 24px;
-	line-height: 31px;
+	//h2
+	font-size: 32px;
+	line-height: 40px;
 }
 %heading-S {
+	//h3
 	font-size: 20px;
-	line-height: 26px;
-}
-%heading-XS {
-	font-size: 16px;
-	line-height: 21px;
-}
-
-%box-shadow {
-	--shadow-color: black;
-	border: 3px solid var(--shadow-color);
-	box-shadow: 0px 10px 0px var(--shadow-color);
-}
-
-%box-shadow-hoverable {
-	@extend %box-shadow;
-	&:hover {
-		--shadow-color: var(--dark-purple);
-	}
-}
-
-%small-button {
-	background: var(--dark-purple);
-	border-radius: 20px;
-	color: white;
-	border: none;
-	min-width: 108px;
-	padding: 10px 20px;
-	font-weight: bold;
-	cursor: pointer;
-
-	&:hover {
-		background: var(--pink);
-	}
-}
-
-%hover-on-footer {
-	position: relative;
-	z-index: 2;
-	top: minMaxSize(-10px, -3px);
+	line-height: 25px;
 }
 
 %screen-reader-only {

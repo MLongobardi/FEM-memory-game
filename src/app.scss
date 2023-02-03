@@ -1,21 +1,30 @@
 @import "normalize.css";
-/*
+
 @font-face {
-	font-family: "SpaceGrotesk";
-	src: url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
-	font-weight: 100 1000;
+	font-family: "AtkinsonHyperlegible";
+	src: url("/fonts/AtkinsonHyperlegible-Bold.ttf") format("truetype");
 }
-*/
+
 :root, ::backdrop {
     //dialog::background doesn't inherit variables set in :root
-    --dark-purple: #5c2ddf;
-    --purple: #7945ff;
-    --pink: #fd6687;
-    --yellow: #ffce67;
+    //find better names
+    --orange: #FDA214;
+    --color-2: #BCCED9;
+    --color-3: #304859;
+    --dark-blue: #152939;
+    --color-5: #F2F2F2;
+    --color-6: #7191A5;
+    --color-7: #6395B8;
+    --background-white: #FCFCFC;
 }
 
 body {
-
+    font-family: "AtkinsonHyperlegible";
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    color: var(--dark-blue);
+    background-color: var(--background-white);
 }
 
 h1 {
@@ -27,6 +36,4 @@ h2 {
 h3 {
     @extend %heading-S;
 }
-h4 {
-    @extend %heading-XS;
-}
+

@@ -3,7 +3,7 @@
 </script>
 
 <header>
-	HEADER
+	<h1>HEADER</h1>
 </header>
 
 <style lang="scss">
