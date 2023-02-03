@@ -1,0 +1,32 @@
+@import "normalize.css";
+/*
+@font-face {
+	font-family: "SpaceGrotesk";
+	src: url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
+	font-weight: 100 1000;
+}
+*/
+:root, ::backdrop {
+    //dialog::background doesn't inherit variables set in :root
+    --dark-purple: #5c2ddf;
+    --purple: #7945ff;
+    --pink: #fd6687;
+    --yellow: #ffce67;
+}
+
+body {
+
+}
+
+h1 {
+    @extend %heading-L;
+}
+h2 {
+    @extend %heading-M;
+}
+h3 {
+    @extend %heading-S;
+}
+h4 {
+    @extend %heading-XS;
+}
