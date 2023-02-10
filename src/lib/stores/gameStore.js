@@ -1,7 +1,7 @@
 import { writable } from "svelte/store";
 
 const cleanState = {
-	hello: "word";
+	hello: "word",
 };
 
 function createStore() {

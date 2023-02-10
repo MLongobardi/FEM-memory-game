@@ -1,39 +1,42 @@
-@import "normalize.css";
+@import 'normalize.css';
 
 @font-face {
-	font-family: "AtkinsonHyperlegible";
-	src: url("/fonts/AtkinsonHyperlegible-Bold.ttf") format("truetype");
-}
-
-:root, ::backdrop {
-    //dialog::background doesn't inherit variables set in :root
-    //find better names
-    --orange: #FDA214;
-    --color-2: #BCCED9;
-    --color-3: #304859;
-    --dark-blue: #152939;
-    --color-5: #F2F2F2;
-    --color-6: #7191A5;
-    --color-7: #6395B8;
-    --background-white: #FCFCFC;
+	font-family: 'AtkinsonHyperlegible';
+	src: url('/fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype');
 }
 
 body {
-    font-family: "AtkinsonHyperlegible";
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 22px;
+	font-family: 'AtkinsonHyperlegible';
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 22px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	/*height: 100%;*/
+	min-height: 100vh;
     color: var(--dark-blue);
-    background-color: var(--background-white);
+	background-color: var(--background-white);
 }
 
 h1 {
-    @extend %heading-L;
+	@extend %heading-L;
 }
 h2 {
-    @extend %heading-M;
+	@extend %heading-M;
 }
 h3 {
-    @extend %heading-S;
+	@extend %heading-S;
 }
 
+.container {
+	/*screen size: 375px -> 768px -> 1440px*/
+	/*container size: 327px -> 689px -> 1110px*/
+	width: minMaxSize(327px, 689px);
+
+	.lar-tab & {
+		/*This part doesn't work if I use a placeholder class or a mixin*/
+		width: minMaxSize(689px, 1110px, 768px, 1440px);
+	}
+}

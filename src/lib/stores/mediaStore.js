@@ -15,7 +15,8 @@ const classStrings = Object.fromEntries(
 		arr
 			.map(keyToClassName)
 			.slice(0, i + 1)
-			.join(" "),
+			.join(" ")
+			.slice(1),
 	])
 );
 
