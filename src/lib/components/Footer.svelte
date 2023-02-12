@@ -1,5 +1,6 @@
 <script>
 	import { FooterCard } from "$comps";
+	import { mainStore, dialogStore } from "$stores";
 	let multiplayer = true;
 	let cards = 4;
 </script>
@@ -22,6 +23,7 @@
 		>
 			Toggle multiplayer
 		</button>
+		<button on:click={$dialogStore.TEST.open}>open TEST dialog</button>
 	</span>
 </footer>
 

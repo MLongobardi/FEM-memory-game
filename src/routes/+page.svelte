@@ -1,5 +1,5 @@
 <script>
-	import { Header, Main, Footer } from "$comps";
+	import { Header, Main, Footer, Dialog } from "$comps";
 	import { mediaStore } from "$stores";
 </script>
 
@@ -11,6 +11,7 @@
 	<span class="main-ftr" />
 	<Footer />
 	<span class="ftr-btm" />
+	<Dialog name="TEST" startOpen/>
 </div>
 
 <style>
