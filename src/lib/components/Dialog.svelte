@@ -104,8 +104,6 @@
 		justify-content: center;
 		height: 100%;
 		width: 100%;
-        padding: 30px;
-		box-sizing: border-box;
 	}
 
 	:global(body):has(dialog[open]) {

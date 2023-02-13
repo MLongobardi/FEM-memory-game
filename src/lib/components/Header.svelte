@@ -16,7 +16,7 @@
 		display: flex;
 		justify-content: space-between;
 	}
-	
+
 	img {
 		object-fit: contain;
 	}

@@ -23,7 +23,7 @@
 		>
 			Toggle multiplayer
 		</button>
-		<button on:click={$dialogStore.TEST.open}>open TEST dialog</button>
+		<button on:click={$dialogStore.SETTINGS.open}>open SETTINGS dialog</button>
 	</span>
 </footer>
 

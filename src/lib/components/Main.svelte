@@ -35,7 +35,7 @@
 		padding: 0;
 		/*end reset*/
 		width: 100%;
-		background: var(--covered-cell);
+		background: var(--color-3);
 		border: none;
 		border-radius: 50%;
 		padding: 0;

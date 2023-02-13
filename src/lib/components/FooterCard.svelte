@@ -21,7 +21,7 @@
 		box-sizing: border-box;
 	}
 	.card.active {
-		background: var(--orange);
+		background: var(--color-1);
         position: relative;
 	}
 	.card.active::before {
@@ -34,7 +34,7 @@
         left: calc(50% - var(--h));
 		border-style: solid;
 		border-width: 0 var(--h) var(--h) var(--h);
-		border-color: transparent transparent var(--orange) transparent;
+		border-color: transparent transparent var(--color-1) transparent;
 	}
     :global(.des) .card.active::after {
         --w: 158px;
@@ -47,7 +47,7 @@
         line-height: 16px;
         letter-spacing: 5px;
         text-align: center;
-        color: var(--dark-blue);
+        color: var(--color-4);
     }
 
 	.text {
@@ -57,12 +57,12 @@
 	}
 
 	.number {
-		color: var(--colored-cell);
+		color: var(--color-3);
 		font-size: minMaxSize(24px, 32px);
 		line-height: minMaxSize(30px, 40px);
 	}
 
 	.active :is(.text, .number) {
-		color: var(--background-white);
+		color: var(--color-8);
 	}
 </style>
