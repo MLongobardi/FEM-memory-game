@@ -1,5 +1,5 @@
 <script>
-    import { dialogStore } from "$stores";
+    import { dialogStore, mainStore } from "$stores";
 
 	const formSections = [
 		{
@@ -16,7 +16,7 @@
 		},
 		{
 			title: "Grid Size",
-			groupName: "grid",
+			groupName: "gridType",
 			values: [4, 6],
 			labels: ["4x4", "6x6"],
 		},
@@ -29,8 +29,9 @@
 			if (key != "theme") value = parseInt(value);
 			data[key] = value;
 		}
-		console.log(data);
 
+		mainStore.applySettingsChanges(data);
+		mainStore.newGame();
         $dialogStore.SETTINGS.close();
 	}
 </script>

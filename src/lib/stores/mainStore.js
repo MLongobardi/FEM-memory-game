@@ -3,8 +3,10 @@ import initializeStore from "./utility/initializeStore.js";
 import * as mainStoreMethods from "./methods/mainStore.js";
 
 const storeObject = {
-	hello: "word",
-	testProperty: "testValue",
+	theme: "numbers",
+	players: 1,
+	gridType: 4,
+	board: [],
 };
 
 const mainStore = initializeStore(writable(storeObject), mainStoreMethods);

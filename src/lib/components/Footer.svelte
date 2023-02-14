@@ -1,30 +1,19 @@
 <script>
 	import { FooterCard } from "$comps";
-	import { mainStore, dialogStore } from "$stores";
-	let multiplayer = true;
-	let cards = 4;
+	import { mainStore } from "$stores";
 </script>
 
-<footer class="container" style:--cards={cards}>
-	{#if multiplayer}
-		{#each [...Array(cards).keys()] as i}
-			<FooterCard text="Player {i}" number={5 - i} active={i == 1} />
+<footer class="container" style:--cards={$mainStore.players}>
+	{#if $mainStore.players > 1}
+	<!--multiplayer-->
+		{#each [...Array($mainStore.players).keys()] as i}
+			<FooterCard text="Player {i + 1}" number={5 - i} active={i == 1} />
 		{/each}
 	{:else}
+	<!--single player-->
 		<FooterCard text="Time" number="1:53" />
 		<FooterCard text="Moves" number="39" />
 	{/if}
-	<span style="width:100%; background: red; position: fixed; top: 4px; left: 0;">
-		TEMP
-		<button
-			on:click={() => {
-				multiplayer = !multiplayer;
-			}}
-		>
-			Toggle multiplayer
-		</button>
-		<button on:click={$dialogStore.SETTINGS.open}>open SETTINGS dialog</button>
-	</span>
 </footer>
 
 <style lang="scss">
@@ -48,6 +37,6 @@
 		gap: calc(var(--gap-base) - var(--step) * (var(--cards) - 2));
 	}
 	:global(.lar-tab) footer {
-		--step: #{minMaxSize(9.5px, 0px,768px, 1440px)};
+		--step: #{minMaxSize(9.5px, 0px, 768px, 1440px)};
 	}
 </style>
