@@ -1,5 +1,5 @@
 <script>
-    import { dialogStore, mainStore } from "$stores";
+	import { dialogStore, mainStore } from "$stores";
 
 	const formSections = [
 		{
@@ -32,7 +32,7 @@
 
 		mainStore.applySettingsChanges(data);
 		mainStore.newGame();
-        $dialogStore.SETTINGS.close();
+		$dialogStore.SETTINGS.close();
 	}
 </script>
 
@@ -64,7 +64,6 @@
 
 	.settings {
 		color: var(--color-8);
-		width: minMaxSize(327px, 654px);
 	}
 
 	.settings-title {
@@ -74,11 +73,8 @@
 	}
 
 	.settings-form {
-		width: 100%;
-		padding: minMaxSize(24px, 56px);
-		box-sizing: border-box;
+		@extend %modal-container;
 		background: var(--color-8);
-		border-radius: minMaxSize(10px, 20px);
 	}
 
 	fieldset {
@@ -126,15 +122,9 @@
 	}
 
 	input[type="submit"] {
+		@extend %large-button;
 		background: var(--color-1);
 		color: inherit;
-		width: 100%;
-		padding: minMaxSize(13px, 15px) 0;
-		border: none;
-		border-radius: minMaxSize(26px, 35px);
-		font-size: minMaxSize(18px, 32px);
-		line-height: minMaxSize(22px, 40px);
-		transition: background-color 0.3s;
 	}
 	input[type="submit"]:hover {
 		background: #ffb84a;

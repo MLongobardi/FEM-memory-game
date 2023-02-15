@@ -1,22 +1,5 @@
 <script>
 	import { mainStore } from "$stores";
-	let canPlay = true;
-	let uncovered = [];
-	let active = [];
-
-	function playMove(id, value) {
-		if (!canPlay || uncovered.concat(active.map((el) => el.id)).includes(id)) return; //in case someone manually removes the disabled attribute
-		active = [{ id: id, value: value }, ...active];
-		if (active.length == 2 && active[0].value == active[1].value) {
-			//increase current player points
-			uncovered = [active[0].id, active[1].id, ...uncovered];
-		}
-		canPlay = false;
-		setTimeout(() => {
-			if (active.length == 2) active = [];
-			canPlay = true;
-		}, 350);
-	}
 </script>
 
 <main class:six-cells={$mainStore.gridType == 6}>
@@ -25,15 +8,15 @@
 			{@const id = x + "," + y}
 			<button
 				class="cell"
-				class:active={active.some((el) => el.id == id)}
-				class:uncovered={uncovered.includes(id)}
+				class:active={$mainStore.isActive(id)}
+				class:uncovered={$mainStore.isUncovered(id)}
 				on:click={() => {
-					playMove(id, cell);
+					mainStore.playMove(id, cell);
 				}}
-				disabled={!canPlay || uncovered.concat(active.map((el) => el.id)).includes(id)}
+				disabled={!$mainStore.canPlay || $mainStore.isVisible(id)}
 			>
 				<span>Cell ({id})</span>
-				{#if uncovered.concat(active.map((el) => el.id)).includes(id)}
+				{#if $mainStore.isVisible(id)}
 					{cell}
 				{:else}
 					&nbsp;
@@ -62,16 +45,13 @@
 	}
 
 	.cell {
-		/*reset button styles*/
-		background: none;
-		border: none;
-		padding: 0;
-		/*end reset*/
 		width: 100%;
 		background: var(--color-3);
 		color: var(--color-8);
 		border-radius: 50%;
-		cursor: pointer;
+		&:not(.uncovered, .active, :disabled):hover {
+			background: var(--color-7);
+		}
 	}
 	.cell.uncovered {
 		background: var(--color-2);

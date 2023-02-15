@@ -52,3 +52,30 @@
 	clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
 	white-space: nowrap;
 }
+
+%container {
+	/*screen size: 375px -> 768px -> 1440px*/
+	/*container size: 327px -> 689px -> 1110px*/
+	width: minMaxSize(327px, 689px);
+
+	:global(.lar-tab) & {
+		/*This part doesn't work if I use a placeholder class or a mixin*/
+		width: minMaxSize(689px, 1110px, 768px, 1440px);
+	}
+}
+
+%modal-container {
+	width: minMaxSize(327px, 654px);
+	border-radius: minMaxSize(10px, 20px);
+	padding: minMaxSize(24px, 56px);
+	box-sizing: border-box;
+	background: var(--color-5);
+}
+
+%large-button {
+	width: 100%;
+	height: minMaxSize(48px, 70px);
+	border-radius: minMaxSize(26px, 35px);
+	font-size: minMaxSize(18px, 32px);
+	line-height: minMaxSize(22px, 40px);
+}

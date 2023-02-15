@@ -4,8 +4,31 @@ export function applySettingsChanges(draft, settings) {
 }
 
 export function newGame(draft) {
+	draft.active = [];
+	draft.uncovered = [];
 	draft.board = generateBoard(draft.gridType);
+	draft.canPlay = true;
     return draft;
+}
+
+export function playMove(draft, id, value) {
+	if (!draft.canPlay || draft.isVisible(id)) return draft;
+	draft.active = [{ id: id, value: value }, ...draft.active];
+	if (draft.active.length == 2 && draft.active[0].value == draft.active[1].value) {
+		//TODO: increase current player points
+		draft.uncovered = [draft.active[0].id, draft.active[1].id, ...draft.uncovered];
+	}
+	draft.canPlay = false;
+	setTimeout(() => {
+		this.finishMove();
+	}, draft.moveDelay)
+	return draft;
+}
+
+export function finishMove(draft) {
+	if (draft.active.length == 2) draft.active = [];
+	draft.canPlay = true;
+	return draft;
 }
 
 /* Helper functions (don't export these) */

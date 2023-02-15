@@ -16,6 +16,9 @@
 	 * A Dialog instance won't be added to the dialogStore if it isn't named.
 	 * 
 	 * The dialog backdrop doesn't inherit anything, so it can only use css variables declared in ::backdrop
+	 * 
+	 * border-radius should be applied to the dialog itself, you can target it with:
+	 * :global(dialog):has(> .name-of-content-div) {}
 	 */
 
 	export let name;
@@ -104,6 +107,7 @@
 		justify-content: center;
 		height: 100%;
 		width: 100%;
+		border-radius: inherit;
 	}
 
 	:global(body):has(dialog[open]) {

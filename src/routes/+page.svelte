@@ -27,4 +27,7 @@
 		flex-basis: 10px;
 		flex-grow: 1;
 	}
+	.hdr-main, .main-ftr {
+		flex-grow: 3;
+	}
 </style>

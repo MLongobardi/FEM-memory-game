@@ -3,7 +3,7 @@
 	import { mainStore } from "$stores";
 </script>
 
-<footer class="container" style:--cards={$mainStore.players}>
+<footer style:--cards={$mainStore.players}>
 	{#if $mainStore.players > 1}
 	<!--multiplayer-->
 		{#each [...Array($mainStore.players).keys()] as i}
@@ -20,6 +20,7 @@
 	@use "sass:math";
 
 	footer {
+		@extend %container;
 		display: grid;
 		grid-auto-flow: column;
 		grid-auto-columns: minmax(64px, 255px);

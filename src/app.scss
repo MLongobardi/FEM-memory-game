@@ -1,12 +1,12 @@
-@import 'normalize.css';
+@import "normalize.css";
 
 @font-face {
-	font-family: 'AtkinsonHyperlegible';
-	src: url('/fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype');
+	font-family: "AtkinsonHyperlegible";
+	src: url("/fonts/AtkinsonHyperlegible-Bold.ttf") format("truetype");
 }
 
 body {
-	font-family: 'AtkinsonHyperlegible';
+	font-family: "AtkinsonHyperlegible";
 	font-size: 18px;
 	font-weight: 700;
 	line-height: 22px;
@@ -16,8 +16,8 @@ body {
 	justify-content: center;
 	/*height: 100%;*/
 	min-height: 100vh;
-    color: var(--dark-blue);
-	background-color: var(--background-white);
+	color: var(--color-4);
+	background-color: var(--color-8);
 }
 
 h1 {
@@ -30,13 +30,14 @@ h3 {
 	@extend %heading-S;
 }
 
-.container {
-	/*screen size: 375px -> 768px -> 1440px*/
-	/*container size: 327px -> 689px -> 1110px*/
-	width: minMaxSize(327px, 689px);
-
-	.lar-tab & {
-		/*This part doesn't work if I use a placeholder class or a mixin*/
-		width: minMaxSize(689px, 1110px, 768px, 1440px);
-	}
+button,
+input[type="submit"] {
+	background: none;
+	border: none;
+	padding: 0;
+	user-select: none;
+	transition: background-color 0.3s;
+}
+:is(button, input[type="submit"]):not(:disabled) {
+	cursor: pointer;
 }
