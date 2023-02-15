@@ -1,14 +1,10 @@
-/**
- * Store methods take a copy of the store as the first argument, optionally apply changes to it and then return it.
- */
-
 export function applySettingsChanges(draft, settings) {
 	draft = Object.assign(draft, settings);
 	return draft;
 }
 
 export function newGame(draft) {
-    draft.board = generateBoard(draft.gridType);
+	draft.board = generateBoard(draft.gridType);
     return draft;
 }
 
