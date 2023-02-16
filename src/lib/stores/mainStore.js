@@ -11,6 +11,9 @@ const startObject = {
 	active: [],
 	canPlay: true,
 	moveDelay: 400,
+	moves: 0,
+	currentPlayer: 1,
+	playerScores: [0,0,0,0],
 	isActive(id) {
 		return this.active.some((el) => el.id == id);
 	},

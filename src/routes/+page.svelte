@@ -1,6 +1,16 @@
 <script>
 	import { Header, Main, Footer, Dialog, Settings } from "$comps";
-	import { mediaStore } from "$stores";
+	import { dialogStore, mediaStore } from "$stores";
+	import { onMount } from "svelte";
+
+	onMount(()=>{
+		document.addEventListener("visibilitychange", ()=>{
+			if (document.visibilityState == "hidden" && true) {
+				//replace true with timer.running
+				$dialogStore.PAUSE.open();
+			}
+		})
+	})
 </script>
 
 <div class="media-wrapper {$mediaStore.screenClassList}">

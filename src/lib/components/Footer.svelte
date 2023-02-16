@@ -7,12 +7,12 @@
 	{#if $mainStore.players > 1}
 	<!--multiplayer-->
 		{#each [...Array($mainStore.players).keys()] as i}
-			<FooterCard text="Player {i + 1}" number={5 - i} active={i == 1} />
+			<FooterCard text="Player {i + 1}" number={$mainStore.playerScores[i]} active={i == $mainStore.currentPlayer} />
 		{/each}
 	{:else}
 	<!--single player-->
 		<FooterCard text="Time" number="1:53" />
-		<FooterCard text="Moves" number="39" />
+		<FooterCard text="Moves" number={Math.floor($mainStore.moves)} />
 	{/if}
 </footer>
 
