@@ -8,10 +8,8 @@ export function addInstance(draft, name, instance) {
 			instance.myClose();
 		},
 	};
-	return draft;
 }
 
 export function removeInstance(draft, name) {
 	delete draft[name];
-	return draft;
 }

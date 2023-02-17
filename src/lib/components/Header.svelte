@@ -3,13 +3,14 @@
 	import { Dialog } from "$comps";
 
 	function handleRestart() {
-		mainStore.newGame();
 		$dialogStore.PAUSE.close();
+		mainStore.newGame();
 	}
 
-	function pauseToSettings() {
-		$dialogStore.SETTINGS.open();
+	function openSettings() {
 		$dialogStore.PAUSE.close();
+		$dialogStore.SETTINGS.open();
+		mainStore.pauseTimer();
 	}
 </script>
 
@@ -20,15 +21,15 @@
 		<div class="header-buttons">
 			<button on:click={handleRestart}>Restart</button>
 			<button on:click={$dialogStore.PAUSE.open}>Pause</button>
-			<button on:click={$dialogStore.SETTINGS.open}>New Game</button>
+			<button on:click={openSettings}>New Game</button>
 		</div>
 	{:else}
 		<button on:click={$dialogStore.PAUSE.open}>Menu</button>
 	{/if}
-	<Dialog name="PAUSE">
+	<Dialog name="PAUSE" useTimer>
 		<div class="pause">
 			<button on:click={handleRestart}>Restart</button>
-			<button on:click={pauseToSettings}>New Game</button>
+			<button on:click={openSettings}>New Game</button>
 			<button on:click={$dialogStore.PAUSE.close}>Resume Game</button>
 		</div>
 	</Dialog>

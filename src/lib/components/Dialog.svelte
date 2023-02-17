@@ -1,39 +1,45 @@
 <script>
 	import { onMount, onDestroy } from "svelte";
-	import { dialogStore } from "$stores";
+	import { dialogStore, mainStore } from "$stores";
 
 	/**
 	 * <Dialog name="DIALOG_NAME">
 	 *     //dialog content here, all of it must be inside a single div
 	 * </Dialog>
-	 * 
+	 *
 	 * Then, anywhere you need it, import dialogStore and call
 	 * $dialogStore.DIALOG_NAME.open()
 	 * to show the modal, or
 	 * $dialogStore.DIALOG_NAME.close()
 	 * to close it
-	 * 
+	 *
 	 * A Dialog instance won't be added to the dialogStore if it isn't named.
-	 * 
+	 *
 	 * The dialog backdrop doesn't inherit anything, so it can only use css variables declared in ::backdrop
-	 * 
+	 *
 	 * border-radius should be applied to the dialog itself, you can target it with:
 	 * :global(dialog):has(> .name-of-content-div) {}
 	 */
 
 	export let name;
 	export let startOpen = false;
+	export let useTimer = false;
 
 	let dialog;
 
 	onMount(() => {
 		//hijack native methods, until they add an on:open event
 		dialog.myShowModal = () => {
-			//Additions here
+			if (dialog.open) return;
+			if (useTimer) mainStore.pauseTimer();
 			dialog.showModal();
 		};
+
 		dialog.myClose = () => {
-			//Additions here
+			if (!dialog.open) return;
+			if (useTimer && $mainStore.timer.currentTime + $mainStore.timer.deltaTime > 0) {
+				mainStore.startTimer();
+			}
 			dialog.close();
 		};
 

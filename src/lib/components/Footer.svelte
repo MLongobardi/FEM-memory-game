@@ -11,7 +11,7 @@
 		{/each}
 	{:else}
 	<!--single player-->
-		<FooterCard text="Time" number="1:53" />
+		<FooterCard text="Time" number={$mainStore.timer.timeString} />
 		<FooterCard text="Moves" number={Math.floor($mainStore.moves)} />
 	{/if}
 </footer>
