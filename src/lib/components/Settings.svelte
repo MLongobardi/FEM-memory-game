@@ -75,6 +75,7 @@
 	.settings-form {
 		@extend %modal-container;
 		background: var(--color-8);
+		border-radius: inherit;
 	}
 
 	fieldset {

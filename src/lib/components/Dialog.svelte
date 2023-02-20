@@ -1,6 +1,6 @@
 <script>
 	import { onMount, onDestroy } from "svelte";
-	import { dialogStore, mainStore } from "$stores";
+	import { dialogStore } from "$stores";
 
 	/**
 	 * <Dialog name="DIALOG_NAME">
@@ -22,8 +22,11 @@
 	 */
 
 	export let name;
+	export let easyClose = false;
 	export let startOpen = false;
-	export let useTimer = false;
+	export let onOpen = false;
+	export let onClose = false;
+	export let onEasyClose = easyClose ? onClose : false;
 
 	let dialog;
 
@@ -31,19 +34,17 @@
 		//hijack native methods, until they add an on:open event
 		dialog.myShowModal = () => {
 			if (dialog.open) return;
-			if (useTimer) mainStore.pauseTimer();
+			if (typeof onOpen == "function") onOpen();
 			dialog.showModal();
 		};
-
-		dialog.myClose = () => {
+		dialog.myClose = (mode) => {
 			if (!dialog.open) return;
-			if (useTimer && $mainStore.timer.currentTime + $mainStore.timer.deltaTime > 0) {
-				mainStore.startTimer();
-			}
+			if (mode == "easy" && typeof onEasyClose == "function") onEasyClose();
+			if (mode != "easy" && typeof onClose == "function") onClose();
 			dialog.close();
 		};
 
-		if (startOpen) dialog.myShowModal();
+		if (startOpen) dialog.showModal();
 
 		if (name) dialogStore.addInstance(name, dialog);
 	});
@@ -53,7 +54,7 @@
 	});
 
 	function handlePointDown(e) {
-		if (startOpen) return;
+		if (!easyClose) return;
 		/**
 		 * on:pointerdown|self fires when clicking on the backdrop (so long as the dialog has padding: 0),
 		 * so clicking inside the dialog, dragging on the backdrop and releasing the click
@@ -65,7 +66,7 @@
 				(e) => {
 					let endTouch = e.changedTouches[0];
 					let endTarget = document.elementFromPoint(endTouch.clientX, endTouch.clientY);
-					if (endTarget == dialog) dialog.myClose();
+					if (endTarget == dialog) dialog.myClose("easy");
 				},
 				{ once: true }
 			);
@@ -73,7 +74,7 @@
 			dialog.addEventListener(
 				"pointerup",
 				(e) => {
-					if (e.target == dialog) dialog.myClose();
+					if (e.target == dialog) dialog.myClose("easy");
 				},
 				{ once: true }
 			);
@@ -102,6 +103,7 @@
 		max-height: unset;
 		overflow: visible; //allows, for example, a close button to overflow
 		color: inherit;
+		background: transparent;
 		animation: fade-in 250ms;
 	}
 

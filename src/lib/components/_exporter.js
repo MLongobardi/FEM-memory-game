@@ -8,3 +8,5 @@ export { default as Main } from "./Main.svelte";
 export { default as Footer } from "./Footer.svelte";
 export { default as FooterCard } from "./FooterCard.svelte";
 export { default as Settings } from "./Settings.svelte";
+export { default as GameOver } from "./GameOver.svelte";
+export { default as Loading } from "./Loading.svelte";

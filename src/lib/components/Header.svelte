@@ -2,15 +2,29 @@
 	import { dialogStore, mainStore, mediaStore } from "$stores";
 	import { Dialog } from "$comps";
 
+	function pauseOpen() {
+		mainStore.pauseTimer();
+	}
+
+	function pauseEasyClose() {
+		mainStore.startTimer();
+	}
+
 	function handleRestart() {
 		$dialogStore.PAUSE.close();
 		mainStore.newGame();
 	}
 
-	function openSettings() {
+	function handleResume() {
+		$dialogStore.PAUSE.close();
+		if ($mainStore.timer.currentTime + $mainStore.timer.deltaTime > 0) {
+			mainStore.startTimer();
+		}
+	}
+
+	function toSettings() {
 		$dialogStore.PAUSE.close();
 		$dialogStore.SETTINGS.open();
-		mainStore.pauseTimer();
 	}
 </script>
 
@@ -21,16 +35,16 @@
 		<div class="header-buttons">
 			<button on:click={handleRestart}>Restart</button>
 			<button on:click={$dialogStore.PAUSE.open}>Pause</button>
-			<button on:click={openSettings}>New Game</button>
+			<button on:click={toSettings}>New Game</button>
 		</div>
 	{:else}
 		<button on:click={$dialogStore.PAUSE.open}>Menu</button>
 	{/if}
-	<Dialog name="PAUSE" useTimer>
+	<Dialog name="PAUSE" easyClose onOpen={pauseOpen} onEasyClose={pauseEasyClose}>
 		<div class="pause">
 			<button on:click={handleRestart}>Restart</button>
-			<button on:click={openSettings}>New Game</button>
-			<button on:click={$dialogStore.PAUSE.close}>Resume Game</button>
+			<button on:click={toSettings}>New Game</button>
+			<button on:click={handleResume}>Resume Game</button>
 		</div>
 	</Dialog>
 </header>
@@ -51,25 +65,13 @@
 		@extend %screen-reader-only;
 	}
 
-	.header-buttons,
-	.pause {
-		/* removes whitespace caused by newline for .header-buttons */
+	.header-buttons {
+		/* removes whitespace caused by html newline */
 		display: flex;
 	}
 
-	:global(dialog):has(> .pause) {
-		border-radius: 10px;
-
-		&::backdrop {
-			background: rgba(0, 0, 0, 0.5);
-		}
-	}
 	.pause {
-		flex-direction: column;
-		width: minMaxSize(327px, 654px);
-		padding: minMaxSize(24px, 56px);
-		box-sizing: border-box;
-		background: var(--color-5);
+		@extend %modal-container;
 	}
 
 	button {
@@ -89,15 +91,14 @@
 	}
 	.pause button {
 		@extend %large-button;
-		//width: 100%;
 		margin-left: 0;
 		margin-top: minMaxSize(16px, 28px);
-		//height: minMaxSize(48px,70px);
 	}
 	button:first-of-type {
 		background: var(--color-1);
 		color: var(--color-8);
 		margin: 0;
+
 		&:hover {
 			background: #ffb84a;
 		}

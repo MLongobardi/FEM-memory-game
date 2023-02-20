@@ -28,6 +28,9 @@ export function playMove(draft, id, value) {
 	setTimeout(() => {
 		this._finishMove();
 	}, draft.moveDelay);
+	if (draft.uncovered.length == draft.board.join().split(",").length) {
+		return true;
+	}
 }
 
 export function _finishMove(draft) {

@@ -1,5 +1,13 @@
 <script>
-	import { mainStore } from "$stores";
+	import { dialogStore, mainStore } from "$stores";
+	function wrappedPlayMove(id, cell) {
+		let gameOver = mainStore.playMove(id, cell);
+
+		if (gameOver)
+			setTimeout(() => {
+				$dialogStore.GAMEOVER.open();
+			}, $mainStore.moveDelay * 2.5);
+	}
 </script>
 
 <main class:six-cells={$mainStore.gridType == 6}>
@@ -11,7 +19,7 @@
 				class:active={$mainStore.isActive(id)}
 				class:uncovered={$mainStore.isUncovered(id)}
 				on:click={() => {
-					mainStore.playMove(id, cell);
+					wrappedPlayMove(id, cell);
 				}}
 				disabled={!$mainStore.canPlay || $mainStore.isVisible(id)}
 			>
@@ -49,6 +57,7 @@
 		background: var(--color-3);
 		color: var(--color-8);
 		border-radius: 50%;
+
 		&:not(.uncovered, .active, :disabled):hover {
 			background: var(--color-7);
 		}

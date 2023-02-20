@@ -1,13 +1,14 @@
 <script>
 	import { FooterCard } from "$comps";
-	import { mainStore } from "$stores";
+	import { mainStore, mediaStore } from "$stores";
+	$: playerOrP = $mediaStore.screen.mobile ? "P" : "Player ";
 </script>
 
 <footer style:--cards={$mainStore.players}>
 	{#if $mainStore.players > 1}
 	<!--multiplayer-->
 		{#each [...Array($mainStore.players).keys()] as i}
-			<FooterCard text="Player {i + 1}" number={$mainStore.playerScores[i]} active={i == $mainStore.currentPlayer} />
+			<FooterCard text={playerOrP + (i + 1)} number={$mainStore.playerScores[i]} active={i == $mainStore.currentPlayer} />
 		{/each}
 	{:else}
 	<!--single player-->

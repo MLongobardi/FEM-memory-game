@@ -1,7 +1,9 @@
 <script>
-	import { Header, Main, Footer, Dialog, Settings } from "$comps";
+	import { Header, Main, Footer, Loading, Dialog, Settings, GameOver } from "$comps";
 	import { dialogStore, mainStore, mediaStore } from "$stores";
 	import { onMount } from "svelte";
+
+	let loading = true;
 
 	onMount(() => {
 		document.addEventListener("visibilitychange", () => {
@@ -9,10 +11,15 @@
 				$dialogStore.PAUSE.open();
 			}
 		});
+
+		loading = false;
 	});
 </script>
 
 <div class="media-wrapper {$mediaStore.screenClassList}">
+	{#if loading}
+		<Loading />
+	{/if}
 	<span class="top-hdr" />
 	<Header />
 	<span class="hdr-main" />
@@ -20,8 +27,13 @@
 	<span class="main-ftr" />
 	<Footer />
 	<span class="ftr-btm" />
+	
 	<Dialog name="SETTINGS" startOpen>
 		<Settings />
+	</Dialog>
+
+	<Dialog name="GAMEOVER" onOpen={mainStore.pauseTimer}>
+		<GameOver />
 	</Dialog>
 </div>
 

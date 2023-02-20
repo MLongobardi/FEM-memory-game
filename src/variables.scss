@@ -4,7 +4,6 @@
 :root,
 ::backdrop {
 	//dialog::background doesn't inherit variables set in :root
-	//find better names
 	--color-1: #fda214;
 	--color-2: #bcced9;
 	--color-3: #304859;
@@ -13,6 +12,8 @@
 	--color-6: #7191a5;
 	--color-7: #6395b8;
 	--color-8: #fcfcfc;
+
+	--loading-background: var(--color-4)
 }
 
 %heading-L,
@@ -59,17 +60,23 @@
 	width: minMaxSize(327px, 689px);
 
 	:global(.lar-tab) & {
-		/*This part doesn't work if I use a placeholder class or a mixin*/
 		width: minMaxSize(689px, 1110px, 768px, 1440px);
 	}
 }
 
 %modal-container {
 	width: minMaxSize(327px, 654px);
-	border-radius: minMaxSize(10px, 20px);
 	padding: minMaxSize(24px, 56px);
 	box-sizing: border-box;
 	background: var(--color-5);
+
+	:global(dialog):has(&) {
+		border-radius: minMaxSize(10px, 20px);
+
+		&::backdrop {
+			background: rgba(0, 0, 0, 0.5);
+		}
+	}
 }
 
 %large-button {

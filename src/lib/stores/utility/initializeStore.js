@@ -10,10 +10,12 @@ export default function initializeStore(store, storeMethods) {
 
 		//applies the custom methods to the store
 		store[methodName] = (...args) => {
+			let returnedValue;
 			store.update((draft) => {
-				method(draft, ...args);
+				returnedValue = method(draft, ...args);
 				return draft;
 			});
+			return returnedValue;
 		};
 	}
 
