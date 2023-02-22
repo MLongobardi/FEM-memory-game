@@ -1,5 +1,7 @@
 <script>
 	import { dialogStore, mainStore } from "$stores";
+	import { iconStrings } from "$lib/iconStrings.js";
+
 	function wrappedPlayMove(id, cell) {
 		let gameOver = mainStore.playMove(id, cell);
 
@@ -25,7 +27,11 @@
 			>
 				<span>Cell ({id})</span>
 				{#if $mainStore.isVisible(id)}
-					{cell}
+					{#if $mainStore.theme == "icons"}
+						<i class={iconStrings[cell - 1]} />
+					{:else}
+						{cell}
+					{/if}
 				{:else}
 					&nbsp;
 				{/if}
@@ -53,6 +59,9 @@
 	}
 
 	.cell {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		width: 100%;
 		background: var(--color-3);
 		color: var(--color-8);
@@ -70,5 +79,9 @@
 	}
 	.cell > span {
 		@extend %screen-reader-only;
+	}
+
+	i {
+		font-size: 0.9em;
 	}
 </style>

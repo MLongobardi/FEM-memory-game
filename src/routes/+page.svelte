@@ -16,6 +16,12 @@
 	});
 </script>
 
+<svelte:head>
+	<link href="/fontawesome/css/fontawesome.css" rel="stylesheet" />
+	<link href="/fontawesome/css/regular.css" rel="stylesheet" />
+	<link href="/fontawesome/css/solid.css" rel="stylesheet" />
+</svelte:head>
+
 <div class="media-wrapper {$mediaStore.screenClassList}">
 	{#if loading}
 		<Loading />
@@ -27,7 +33,7 @@
 	<span class="main-ftr" />
 	<Footer />
 	<span class="ftr-btm" />
-	
+
 	<Dialog name="SETTINGS" startOpen>
 		<Settings />
 	</Dialog>
@@ -37,18 +43,20 @@
 	</Dialog>
 </div>
 
-<style>
+<style lang="scss">
 	.media-wrapper {
 		/*I can't add classes to the body in svelte*/
 		display: contents;
 	}
 
-	.top-hdr, .hdr-main, .main-ftr, .ftr-btm {
+	.top-hdr, .ftr-btm {
 		/*body is set to flex*/
 		flex-basis: 10px;
 		flex-grow: 1;
 	}
 	.hdr-main, .main-ftr {
-		flex-grow: 3;
+		flex-basis: 25px;
+		flex-grow: 1.25; //desktop
+		flex-grow: 3.5 //tablet
 	}
 </style>
