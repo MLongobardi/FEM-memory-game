@@ -7,6 +7,7 @@ export function newGame(draft) {
 	draft.uncovered = [];
 	draft.board = generateBoard(draft.gridType);
 	draft.canPlay = true;
+	draft.gameOver = false;
 	draft.moves = 0;
 	draft.currentPlayer = 0;
 	draft.playerScores = [0, 0, 0, 0];
@@ -16,7 +17,7 @@ export function newGame(draft) {
 }
 
 export function playMove(draft, id, value) {
-	if (!draft.canPlay || draft.isVisible(id)) return;
+	if (!draft.canPlay || draft.isVisible(id) || draft.gameOver) return;
 	draft.active = [{ id: id, value: value }, ...draft.active];
 	if (draft.active.length == 2 && draft.active[0].value == draft.active[1].value) {
 		draft.playerScores[draft.currentPlayer]++;
@@ -29,7 +30,7 @@ export function playMove(draft, id, value) {
 		this._finishMove();
 	}, draft.moveDelay);
 	if (draft.uncovered.length == draft.board.join().split(",").length) {
-		return true;
+		draft.gameOver = true;
 	}
 }
 

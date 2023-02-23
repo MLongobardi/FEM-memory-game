@@ -56,7 +56,10 @@
 	}
 	.hdr-main, .main-ftr {
 		flex-basis: 25px;
-		flex-grow: 1.25; //desktop
-		flex-grow: 3.5 //tablet
+		flex-grow: 3.5;
+		
+		:global(.des) & {
+			flex-grow: 1.25;
+		}
 	}
 </style>

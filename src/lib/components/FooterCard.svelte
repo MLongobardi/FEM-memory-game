@@ -15,31 +15,44 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
+		align-content: center;
 		background: #dfe7ec;
-		border-radius: 10px;
-		padding: minMaxSize(10px, 15px); //TODO
-		gap: minMaxSize(2px,5px);
+		border-radius: minMaxSize(5px, 10px);
+		height: minMaxSize(70px, 72px);
+		row-gap: minMaxSize(2px,5px);
 		box-sizing: border-box;
+
+		:global(.tab) &:not(.player) {
+			justify-content: space-between;
+			flex-wrap: nowrap;
+			padding-left: 21px;
+			padding-right: 24px;
+		}
+	}
+	.card.player {
+		height: minMaxSize(70px, 80px);
 
 		:global(.tab) & {
 			justify-content: space-between;
+			height: minMaxSize(80px, 72px, 768px, 1440px);
+			padding-left: minMaxSize(16px, 21px, 768px, 1440px);
 		}
-	}
-	:global(.tab) .card:not(.player),
-	:global(.des) .card {
-		flex-wrap: nowrap;
+		:global(.des) & {
+			flex-wrap: nowrap;
+			padding-right: 24px;
+		}
 	}
 	.card.active {
 		background: var(--color-1);
 		position: relative;
 	}
 	.card.active::before {
-		--h: 19px;
+		--h: 20px;
 		content: "";
 		width: 0;
 		height: 0;
 		position: absolute;
-		top: calc(-1 * var(--h));
+		top: calc(-1 * var(--h) + 1px);
 		left: calc(50% - var(--h));
 		border-style: solid;
 		border-width: 0 var(--h) var(--h) var(--h);

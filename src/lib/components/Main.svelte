@@ -3,12 +3,13 @@
 	import { iconStrings } from "$lib/iconStrings.js";
 
 	function wrappedPlayMove(id, cell) {
-		let gameOver = mainStore.playMove(id, cell);
+		mainStore.playMove(id, cell);
 
-		if (gameOver)
+		if ($mainStore.gameOver) {
 			setTimeout(() => {
 				$dialogStore.GAMEOVER.open();
 			}, $mainStore.moveDelay * 2.5);
+		}
 	}
 </script>
 
@@ -50,6 +51,10 @@
 		width: var(--size);
 		height: var(--size);
 		grid-template-columns: repeat(var(--grid-cols), 1fr);
+		grid-template-rows: repeat(
+			var(--grid-cols),
+			1fr
+		); //a row of uncovered cells gets compressed without this in the Icons version
 		gap: calc(var(--size) / (8.3 + 4.575 * var(--grid-cols)));
 	}
 	main.six-cells {

@@ -1,60 +1,70 @@
 <script>
 	import { dialogStore, mainStore } from "$stores";
-	const actualPlayerScores = $mainStore.playerScores.slice(0, $mainStore.players);
-	const best = Math.max(...actualPlayerScores);
-	const winners = [];
-	actualPlayerScores.forEach((score, player) => {
-		if (score == best) winners.push(player);
-	});
+	let winners = [];
 
-    function handleRestart() {
-        mainStore.newGame();
-        $dialogStore.GAMEOVER.close();
-    }
+	function findWinners() {
+		const actualPlayerScores = $mainStore.playerScores.slice(0, $mainStore.players);
+		const w = [];
+		actualPlayerScores.forEach((score, player) => {
+			if (score == Math.max(...actualPlayerScores)) w.push(player);
+		});
+		return w;
+	}
 
-    function toSettings() {
-        $dialogStore.GAMEOVER.close();
+	$: if ($mainStore.gameOver) {
+		winners = findWinners();
+	}
+
+	function handleRestart() {
+		mainStore.newGame();
+		$dialogStore.GAMEOVER.close();
+	}
+
+	function toSettings() {
+		$dialogStore.GAMEOVER.close();
 		$dialogStore.SETTINGS.open();
-    }
+	}
 </script>
 
 <div class="game-over">
-	<span class="title">
-		{#if $mainStore.players == 1}
-			You did it!
-		{:else if winners.length == 1}
-			Player {winners[0] + 1} Wins!
+	{#if $mainStore.gameOver}
+		<span class="title">
+			{#if $mainStore.players == 1}
+				You did it!
+			{:else if winners.length == 1}
+				Player {winners[0] + 1} Wins!
+			{:else}
+				It's a tie!
+			{/if}
+		</span>
+		<span class="subtitle"
+			>Game over! Here{$mainStore.players > 1 ? " are the results" : "'s how you got on"}...</span
+		>
+		{#if $mainStore.players > 1}
+			<!-- multiplayer -->
+			{#each [...Array($mainStore.players).keys()] as p}
+				{@const win = winners.includes(p)}
+				<div class="player-card" class:winner={win}>
+					<span class="left">Player {p + 1} {win ? "(Winner!)" : ""}</span>
+					<span class="right">{$mainStore.playerScores[p]} Pairs</span>
+				</div>
+			{/each}
 		{:else}
-			It's a tie!
-		{/if}
-	</span>
-	<span class="subtitle"
-		>Game over! Here{$mainStore.players > 1 ? " are the results" : "'s how you got on"}...</span
-	>
-	{#if $mainStore.players > 1}
-		<!-- multiplayer -->
-		{#each [...Array($mainStore.players).keys()] as p}
-			{@const win = winners.includes(p)}
-			<div class="player-card" class:winner={win}>
-				<span class="left">Player {p + 1} {win ? "(Winner!)" : ""}</span>
-				<span class="right">{actualPlayerScores[p]} Pairs</span>
+			<!-- single player -->
+			<div class="time">
+				<span class="left">Time Elapsed</span>
+				<span class="right">{$mainStore.timer.timeString}</span>
 			</div>
-		{/each}
-	{:else}
-		<!-- single player -->
-		<div class="time">
-			<span class="left">Time Elapsed</span>
-			<span class="right">{$mainStore.timer.timeString}</span>
-		</div>
-		<div class="moves">
-			<span class="left">Moves Taken</span>
-			<span class="right">{$mainStore.moves} Moves</span>
+			<div class="moves">
+				<span class="left">Moves Taken</span>
+				<span class="right">{$mainStore.moves} Moves</span>
+			</div>
+		{/if}
+		<div class="buttons">
+			<button on:click={handleRestart}>Restart</button>
+			<button on:click={toSettings}>Setup New Game</button>
 		</div>
 	{/if}
-	<div class="buttons">
-		<button on:click={handleRestart}>Restart</button>
-		<button on:click={toSettings}>Setup New Game</button>
-	</div>
 </div>
 
 <style lang="scss">

@@ -1,6 +1,5 @@
 export function addInstance(draft, name, instance) {
 	draft[name] = {
-		reference: instance,
 		open() {
 			instance.myShowModal();
 		},

@@ -12,6 +12,7 @@ const startObject = {
 	uncovered: [],
 	active: [],
 	canPlay: true,
+	gameOver: true,
 	moveDelay: 300,
 	moves: 0,
 	timer: {
