@@ -1,7 +1,7 @@
 <script>
 	import { dialogStore, mainStore, mediaStore } from "$stores";
 	import { Dialog } from "$comps";
-	
+
 	function pauseOpen() {
 		mainStore.pauseTimer();
 	}
