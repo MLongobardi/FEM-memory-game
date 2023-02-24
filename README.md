@@ -12,7 +12,7 @@ This is a solution to the [Memory game challenge on Frontend Mentor](https://www
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
     - [Dialog](#dialog)
-    - [Store management](#store-managemenet)
+    - [Store management](#store-management)
   - [Continued development](#continued-development)
 - [Author](#author)
 
@@ -68,7 +68,7 @@ Dialog.svelte creates a [\<dialog\>](https://developer.mozilla.org/en-US/docs/We
 </script>
 
 <Dialog name="SETTINGS" onOpen={settingsOpen} onClose={settingsClose}>
-    <div class="settings">
+    <div class="settings-modal">
         <!-- settings content -->
     </div>
 </Dialog>
@@ -77,7 +77,7 @@ And:
 ```html
 <!--ComponentB-->
 <script>
-    import { dialogStore } from "(dialogStore-path)";
+    import { dialogStore } from "path-to-dialogStore";
 </script>
 
 <button on:click={$dialogStore.SETTINGS.close}>
@@ -101,7 +101,7 @@ const cleanState = {
 		one: 1,
 		two: 2,
 	},
-	propertyC: "world",
+	propertyC: "world!",
 	get fullString() {return this.propertyA + this.propertyC}
 }
 
@@ -119,13 +119,13 @@ tempStore.methodA = (argumentA) => {
 tempStore.methodHidden = () => {
     //this method should only be usable by other store methods 
     //not by outside components that subscribe to the store
-	tempStore.update((draft) => { //two extra lines may not seem much
+	tempStore.update((draft) => { //three extra lines may not seem much
 		/*do something to draft*/
-		return draft; //but they add up 
-	})
+		return draft; //but with more and more custom methods 
+	}) //they add up
 }
 
-//use object destructuring to create a copy of tempStore that doesn't have set and update, and export it
+//use object destructuring to create and then export a copy of tempStore that doesn't have set, update and implicit methods
 export const { set, update, methodHidden, ...actualStore } = tempStore;
 ```
 The more complex an application is, the more cleanState and the list of custom methods grow, resulting in a pretty long file that is difficult to navigate. Also if I want some methods to remain implicit, I need to remember to manually add them to the list of excluded methods in the last line.
