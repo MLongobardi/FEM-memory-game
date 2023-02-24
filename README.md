@@ -1,22 +1,26 @@
-# Frontend Mentor - Memory game
+# Frontend Mentor - Memory game solution
 
-![Design preview for the Memory game coding challenge](./preview.jpg)
+This is a solution to the [Memory game challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/memory-game-vse4WFPvM). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
 
-## Welcome! 👋
+## Table of contents
 
-Thanks for purchasing this premium Frontend Mentor coding challenge.
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+    - [Dialog](#dialog)
+    - [Store management](#store-managemenet)
+  - [Continued development](#continued-development)
+- [Author](#author)
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects. These premium challenges are perfect portfolio pieces, so please feel free to use what you create in your portfolio to show others.
+## Overview
 
-**To do this challenge, you need a strong understanding of HTML, CSS, and JavaScript.**
+### The challenge
 
-## The challenge
-
-Your challenge is to build out this Memory game and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to:
+Users should be able to:
 
 - View the optimal layout for the game depending on their device's screen size
 - See hover states for all interactive elements on the page
@@ -24,77 +28,149 @@ Your users should be able to:
 - Set the theme to use numbers or icons within the tiles
 - Choose to play on either a 6x6 or 4x4 grid
 
-Want some support on the challenge? [Join our Slack community](https://www.frontendmentor.io/slack) and ask questions in the **#help** channel.
+### Screenshot
 
-### Expected behaviour
+![](./screenshot.png)
 
-- You can choose to make the default screen either the Start Game screen or the solo player 4x4 grid. Note that we're using the solo player 4x4 grid for the design screenshot, so if you choose the Start Game screen, it won't match up in the design comparison slider. This isn't a big deal, but is something worth considering.
-- In a solo game, track the time elapsed since first clicking on a tile and the total number of moves made. A move counts as two tiles being selected as a potential match. Once all pairs have been found, stop the timer and show the end of game modal with the stats.
-- In a multiplayer game, track the total number of pairs each player has found. If a player finds a pair, increment their score by one. The current turn switches to the next player after the current player has made a move to find a potential match.
-- Clicking "Restart" will restart the game with the current settings
-- Clicking "New Game" will go to the Start Game screen where the player can choose their settings
-- The icons in the design are from [Font Awesome](https://fontawesome.com/). Please choose whatever icons you prefer. You could even use a different icon library, if you like.
+### Links
 
-## Where to find everything
+- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Live Site URL: [https://fem-memory-game-mlongobardi.vercel.app/](https://fem-memory-game-mlongobardi.vercel.app/)
 
-Your task is to build out the project to the design file provided. We provide both Sketch and Figma versions of the design, so you can choose which tool you prefer to use. You can download the design file on the platform. **Please be sure not to share them with anyone else.** The design download comes with a `README.md` file as well to help you get set up.
+## My process
 
-All the required assets for this project are in the `/assets` folder. The assets are already exported for the correct screen size and optimized. Some images are reusable at multiple screen sizes. So if you don't see an image in a specific folder, it will typically be in another folder for that page.
+### Built with
 
-The design system in the design file will give you more information about the various colors, fonts, and styles used in this project.
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+- [Svelte](https://svelte.dev/) - JS framework
+- [Sveltekit](https://kit.svelte.dev/) - Svelte framework
+- [Sass](https://sass-lang.com/) - For styles
+- [Autoprefixer (PostCSS)](https://github.com/postcss/autoprefixer) - For styles
 
-## Building your project
+### What I learned
+After what I learned in my previous Frontend Mentor projects, this one was pretty straightforward, so I spent some time to work on my Dialog.svelte and my management of the application state with Svelte's stores.
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+#### Dialog
+Dialog.svelte creates a [\<dialog\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) element that can (optionally) close itself when clicking or tapping on the backdrop, and can run a custom function on both open and close. When created with the "name" attribute, that instance is added to a store (dialogStore), and can be easily accessed by any other component, without having to pass a reference through props. For example:
+```html
+<!--ComponentA-->
+<script>
+    function settingsOpen() {
+        /*...*/
+    }
+    function settingsClose() {
+        /*...*/
+    }
+</script>
 
-1. Separate the `starter-code` from the rest of this project and rename it to something meaningful for you. Initialize the codebase as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/). **⚠️ IMPORTANT ⚠️: There are already a couple of `.gitignore` files in this project. Please do not remove them or change the content of the files. If you create a brand new project, please use the `.gitignore` files provided in your new codebase. This is to avoid the accidental upload of the design files to GitHub. With these premium challenges, please be sure not to share the design files in your GitHub repo. Thanks!**
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+<Dialog name="SETTINGS" onOpen={settingsOpen} onClose={settingsClose}>
+    <div class="settings">
+        <!-- settings content -->
+    </div>
+</Dialog>
+```
+And:
+```html
+<!--ComponentB-->
+<script>
+    import { dialogStore } from "(dialogStore-path)";
+</script>
 
-## Deploying your project
+<button on:click={$dialogStore.SETTINGS.close}>
+    Close Settings
+</button>
+```
+The button in ComponentB will close the settings dialog even if it's in another component, and the dialog will run the settingsClose() function before closing (for example in this project, opening and closing the pause dialog will stop and resume the game timer).
 
-As mentioned above, there are many ways to host your project for free. Our recommend hosts are:
+#### Store management
+Svelte provides stores: objects that components can subscribe to, updating whenever the store value changes. The standard, writable stores come with a set (overwrite store value) and an update (change store value depending on previous state) methods. This means that any component can change the store value, and all other components that subscribe to the same store will be correctly updated. These may work when the value is a simple, single variable, but when using a complex object that makes up the application state (or part of it), I like making a custom store with my own methods, so that I can precisely control how the state is changed. In this project, I improved the way I do this, removing some boilerplate.
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+Previously, my implementation of a store looked like this:
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
+```js
+import { writable } from "svelte/store";
 
-## Create a custom `README.md`
+//the application state, with the initial values before anything modifies them
+const cleanState = {
+	propertyA: "hello ",
+	propertyB: {
+		one: 1,
+		two: 2,
+	},
+	propertyC: "world",
+	get fullString() {return this.propertyA + this.propertyC}
+}
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+const tempStore = writable(cleanState); //the store is created and initialized with cleanState
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+//add my custom methods
+tempStore.methodA = (argumentA) => {
+	tempStore.update((draft) => { //each one needs to internally call the update method
+		draft.propertyB.one += argumentA;
+		return draft; //and it must return the modified draft
+	});
+	tempStore.methodHidden();
+};
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+tempStore.methodHidden = () => {
+    //this method should only be usable by other store methods 
+    //not by outside components that subscribe to the store
+	tempStore.update((draft) => { //two extra lines may not seem much
+		/*do something to draft*/
+		return draft; //but they add up 
+	})
+}
 
-## Submitting your solution
+//use object destructuring to create a copy of tempStore that doesn't have set and update, and export it
+export const { set, update, methodHidden, ...actualStore } = tempStore;
+```
+The more complex an application is, the more cleanState and the list of custom methods grow, resulting in a pretty long file that is difficult to navigate. Also if I want some methods to remain implicit, I need to remember to manually add them to the list of excluded methods in the last line.
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
+[In my new approach](https://github.com/MLongobardi/FEM-memory-game/tree/main/src/lib/stores), I created an initializeStore function (in the utility folder) that takes a store and a set of methods as arguments. The methods are [bound](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) to the store so that they can use the "this" keyword to call other methods, and methods that start with an underscore ("\_") will remain implicit. The function then returns the correctly created store.
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+My dialogStore now looks like this:
+```js
+/* stores/methods/dialogStore.js */
+export function addInstance(draft, name, instance) {
+	draft[name] = {
+		open() {
+			instance.myShowModal();
+		},
+		close() {
+			instance.myClose();
+		},
+	};
+}
 
-**⚠️ IMPORTANT ⚠️: With these premium challenges, please be sure not to upload the design files to GitHub when you're submitting to the platform and sharing it around. If you've created a brand new project, the easiest way to do that is to copy across the `.gitignore` provided in this starter project.**
+export function removeInstance(draft, name) {
+	delete draft[name];
+}
+```
+And:
+```js
+/* stores/dialogStore.js */
+import { writable } from "svelte/store";
+import initializeStore from "./utility/initializeStore.js";
+import * as dialogStoreMethods from "./methods/dialogStore.js";
 
-## Sharing your solution
+const startObject = {};
 
-There are multiple places you can share your solution:
+const dialogStore = initializeStore(writable(startObject), dialogStoreMethods);
+export default dialogStore;
+```
+Which is faster to write and looks much better.
 
-1. Share your solution page in the **#finished-projects** channel of the [Slack community](https://www.frontendmentor.io/slack). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+### Continued development
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback. 
+Working on Dialog.svelte made me understand the importance of having abstract components that can be reused for different projects. Having a library of them would really speed up the creation of a project, so I will try to make some more.
 
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
+I'm not completely sold on the naming convention I chose for the store method files, having the same name as the store they're meant for. While the two files are in different folders, they end up close in the VS Code sidebar which makes it easy to confuse them. I'll see if I can get used to it, or if I should find another way to name them.
 
-## Got feedback for us?
+## Author
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
-
-**Have fun building!** 🚀
+- GitHub - [@MLongobardi](https://github.com/MLongobardi)
+- Frontend Mentor - [@MLongobardi](https://www.frontendmentor.io/profile/MLongobardi)
