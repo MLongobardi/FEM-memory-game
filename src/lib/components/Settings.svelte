@@ -103,7 +103,6 @@
 		font-weight: 700;
 		font-size: minMaxSize(16px, 26px);
 		line-height: minMaxSize(20px, 32px);
-		transition: background-color 0.3s;
 	}
 	label:hover {
 		background: var(--color-7);

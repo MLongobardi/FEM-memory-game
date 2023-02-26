@@ -6,12 +6,16 @@
 
 <footer style:--cards={$mainStore.players}>
 	{#if $mainStore.players > 1}
-	<!--multiplayer-->
+		<!--multiplayer-->
 		{#each [...Array($mainStore.players).keys()] as i}
-			<FooterCard text={playerOrP + (i + 1)} number={$mainStore.playerScores[i]} active={i == $mainStore.currentPlayer} />
+			<FooterCard
+				text={playerOrP + (i + 1)}
+				number={$mainStore.playerScores[i]}
+				active={i == $mainStore.currentPlayer}
+			/>
 		{/each}
 	{:else}
-	<!--single player-->
+		<!--single player-->
 		<FooterCard text="Time" number={$mainStore.timer.timeString} />
 		<FooterCard text="Moves" number={Math.floor($mainStore.moves)} />
 	{/if}

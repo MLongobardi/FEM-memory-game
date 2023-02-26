@@ -14,8 +14,8 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	/*height: 100%;*/
 	min-height: 100vh;
+	min-height: 100svh; /*Only when supported*/
 	color: var(--color-4);
 	background-color: var(--color-8);
 }
@@ -31,13 +31,15 @@ h3 {
 }
 
 button,
-input[type="submit"] {
+input[type="submit"],
+label:has(input[type="radio"]) {
 	background: none;
 	border: none;
 	padding: 0;
 	user-select: none;
 	transition: background-color 0.3s;
 }
-:is(button, input[type="submit"]):not(:disabled) {
+.hoverable :is(button, input[type="submit"], label:has(input[type="radio"])):not(:disabled) {
+	/*Only set on non-mobile devices to avoid the blue flash on tap*/
 	cursor: pointer;
 }

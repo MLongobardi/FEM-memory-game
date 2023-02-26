@@ -19,7 +19,7 @@
 		background: #dfe7ec;
 		border-radius: minMaxSize(5px, 10px);
 		height: minMaxSize(70px, 72px);
-		row-gap: minMaxSize(2px,5px);
+		row-gap: minMaxSize(2px, 5px);
 		box-sizing: border-box;
 
 		:global(.tab) &:not(.player) {

@@ -22,7 +22,10 @@
 	<link href="/fontawesome/css/solid.css" rel="stylesheet" />
 </svelte:head>
 
-<div class="media-wrapper {$mediaStore.screenClassList}">
+<div
+	class="media-wrapper {$mediaStore.screenClassList}"
+	class:hoverable={$mediaStore.misc.hoverable}
+>
 	{#if loading}
 		<Loading />
 	{/if}
@@ -49,15 +52,17 @@
 		display: contents;
 	}
 
-	.top-hdr, .ftr-btm {
+	.top-hdr,
+	.ftr-btm {
 		/*body is set to flex*/
 		flex-basis: 10px;
 		flex-grow: 1;
 	}
-	.hdr-main, .main-ftr {
+	.hdr-main,
+	.main-ftr {
 		flex-basis: 25px;
 		flex-grow: 3.5;
-		
+
 		:global(.des) & {
 			flex-grow: 1.25;
 		}
