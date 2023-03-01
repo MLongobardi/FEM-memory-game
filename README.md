@@ -34,7 +34,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [https://www.frontendmentor.io/solutions/memory-game-with-svelte-USPD4kxlKK](https://www.frontendmentor.io/solutions/memory-game-with-svelte-USPD4kxlKK)
 - Live Site URL: [https://fem-memory-game-mlongobardi.vercel.app/](https://fem-memory-game-mlongobardi.vercel.app/)
 
 ## My process
