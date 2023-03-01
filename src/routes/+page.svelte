@@ -37,7 +37,8 @@
 	<Footer />
 	<span class="ftr-btm" />
 
-	<Dialog name="SETTINGS" startOpen>
+	<!--<Dialog name="SETTINGS" startOpen>-->
+	<Dialog name="SETTINGS">
 		<Settings />
 	</Dialog>
 

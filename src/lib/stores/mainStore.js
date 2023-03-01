@@ -8,7 +8,12 @@ const startObject = {
 	gridType: 4,
 	currentPlayer: 1,
 	playerScores: [0, 0, 0, 0],
-	board: [],
+	board: [
+		[4, 7, 5, 3],
+		[4, 2, 6, 5],
+		[2, 8, 1, 6],
+		[7, 8, 1, 3],
+	],
 	uncovered: [],
 	active: [],
 	canPlay: true,
