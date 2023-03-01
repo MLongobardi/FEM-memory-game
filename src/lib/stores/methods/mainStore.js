@@ -73,7 +73,6 @@ function generateBoard(col) {
 	let arr = [...Array((col * col) / 2 + 1).keys()].splice(1); // [1, 2, ... , col*col]
 	arr = arr.concat(arr);
 	arr = breakRows(shuffleArray(arr));
-	console.log(arr)
 	return arr;
 }
 
