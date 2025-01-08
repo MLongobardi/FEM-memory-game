@@ -6,8 +6,10 @@
 		mainStore.pauseTimer();
 	}
 
-	function pauseEasyClose() {
-		mainStore.startTimer();
+	function pauseOnClose() {
+		if ($mainStore.timer.currentTime + $mainStore.timer.deltaTime > 0) {
+			mainStore.startTimer();
+		}
 	}
 
 	function handleRestart() {
@@ -17,9 +19,6 @@
 
 	function handleResume() {
 		$dialogStore.PAUSE.close();
-		if ($mainStore.timer.currentTime + $mainStore.timer.deltaTime > 0) {
-			mainStore.startTimer();
-		}
 	}
 
 	function toSettings() {
@@ -40,7 +39,7 @@
 	{:else}
 		<button on:click={$dialogStore.PAUSE.open}>Menu</button>
 	{/if}
-	<Dialog name="PAUSE" easyClose onOpen={pauseOpen} onEasyClose={pauseEasyClose}>
+	<Dialog name="PAUSE" easyClose onOpen={pauseOpen} onClose={pauseOnClose}>
 		<div class="pause">
 			<button on:click={handleRestart}>Restart</button>
 			<button on:click={toSettings}>New Game</button>

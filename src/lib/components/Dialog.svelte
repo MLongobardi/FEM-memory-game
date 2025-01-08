@@ -30,21 +30,37 @@
 
 	let dialog;
 
+	function beforeClose(mode) {
+		if (mode == "easy" && typeof onEasyClose == "function") onEasyClose();
+		if (mode != "easy" && typeof onClose == "function") onClose();
+		dialog.removeEventListener("keydown", handleEsc);
+	}
+
+	function handleEsc(e) {
+		if (e.key == "Escape") {
+			if (startOpen) e.preventDefault();
+			else beforeClose();
+		}
+	}
+
 	onMount(() => {
 		//hijack native methods, until they add an on:open event
 		dialog.myShowModal = () => {
 			if (dialog.open) return;
 			if (typeof onOpen == "function") onOpen();
+			dialog.addEventListener("keydown", handleEsc);
 			dialog.showModal();
 		};
 		dialog.myClose = (mode) => {
 			if (!dialog.open) return;
-			if (mode == "easy" && typeof onEasyClose == "function") onEasyClose();
-			if (mode != "easy" && typeof onClose == "function") onClose();
+			beforeClose(mode);
 			dialog.close();
 		};
 
-		if (startOpen) dialog.showModal();
+		if (startOpen) {
+			dialog.addEventListener("keydown", handleEsc);
+			dialog.showModal();
+		}
 
 		if (name) dialogStore.addInstance(name, dialog);
 	});
